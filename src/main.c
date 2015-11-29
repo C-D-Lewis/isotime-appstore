@@ -1,9 +1,17 @@
-#include "main.h"
+#include <pebble.h>
+
+#include "config.h"
+
+#include "modules/data.h"
+
+#include "pge/pge.h"
+#include "pge/modules/pge_isometric.h"
+
+#include "drawable/segment.h"
+#include "drawable/digit.h"
 
 static Digit *s_digits[4];
 
-static GColor s_bg_color, s_fg_color;
-static int s_color_set;
 static bool s_initd;
 
 static bool digits_are_animating() {
@@ -64,37 +72,8 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   }
   digit_set_value(s_digits[3], mins % 10);
 
-  // Pick new color set
-  srand(time(NULL));
-  int old_set = s_color_set;
-  while(s_color_set == old_set) {
-    s_color_set = rand() % NUM_COLOR_SETS;
-  }
-  switch(s_color_set) {
-    case COLOR_SET_YELLOW:
-      s_fg_color = FG_COL_YELLOW;
-      s_bg_color = BG_COL_YELLOW;
-      break;
-    case COLOR_SET_RED:
-      s_fg_color = FG_COL_RED;
-      s_bg_color = BG_COL_RED;
-      break;
-    case COLOR_SET_BLUE:
-      s_fg_color = FG_COL_BLUE;
-      s_bg_color = BG_COL_BLUE;
-      break;
-    case COLOR_SET_GREEN:
-      s_fg_color = FG_COL_GREEN;
-      s_bg_color = BG_COL_GREEN;
-      break;
-    case COLOR_SET_GRAY:
-      s_fg_color = FG_COL_GRAY;
-      s_bg_color = BG_COL_GRAY;
-      break;
-  }
-
   for(int i = 0; i < 4; i++) {
-    digit_set_colors(s_digits[i], s_fg_color, s_bg_color);
+    digit_set_colors(s_digits[i], data_get_color(ColorSides), data_get_color(ColorFace));
   }
 
   // Smooth transition
@@ -120,6 +99,8 @@ static void focus_handler(bool now_in_focus) {
 void pge_init() {
   s_initd = false;
 
+  data_init();
+
   s_digits[0] = digit_create(GPoint(-HOURS_OFFSET, 0), 0);
   s_digits[1] = digit_create(GPoint(-HOURS_OFFSET + (5 * SEGMENT_SIZE.w), 0), 0);
   s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * SEGMENT_SIZE.h), 0);
@@ -127,13 +108,18 @@ void pge_init() {
 
   pge_isometric_set_projection_offset(PROJECTION_OFFSET);
   pge_set_framerate(FRAME_RATE_HIGH);
-  pge_begin(GColorBlack, pge_logic, pge_render, NULL);
+  pge_begin(data_get_color(ColorBackground), pge_logic, pge_render, NULL);
 
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 
   time_t temp = time(NULL);
   struct tm *t = localtime(&temp);
   tick_handler(t, MINUTE_UNIT);
+
+  // Fast forward - save power when lots of notifications
+  while(digits_are_animating()) {
+    pge_logic();
+  }
 
   app_focus_service_subscribe(focus_handler);
 }
