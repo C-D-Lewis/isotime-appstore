@@ -3,6 +3,7 @@
 #include "config.h"
 
 #include "modules/data.h"
+#include "modules/comm.h"
 
 #include "pge/pge.h"
 #include "pge/modules/pge_isometric.h"
@@ -100,6 +101,7 @@ void pge_init() {
   s_initd = false;
 
   data_init();
+  comm_init(64, 64);
 
   s_digits[0] = digit_create(GPoint(-HOURS_OFFSET, 0), 0);
   s_digits[1] = digit_create(GPoint(-HOURS_OFFSET + (5 * SEGMENT_SIZE.w), 0), 0);
