@@ -30,8 +30,8 @@ Pebble.addEventListener('webviewclosed', function(e) {
 
   var options = {
     'AppKeyAnimations': '' + json.animations,
-    'AppKeyColorBackground': background
-    'AppKeyColorSides': sides
+    'AppKeyColorBackground': background,
+    'AppKeyColorSides': sides,
     'AppKeyColorFace': face
   };
 
