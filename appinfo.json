@@ -14,8 +14,12 @@
     "basalt",
     "chalk"
   ],
+  "capabilities": [ "configurable" ],
   "appKeys": {
-    "dummy": 0
+    "AppKeyColorBackground": 0,
+    "AppKeyColorSides": 1,
+    "AppKeyColorFace": 2,
+    "AppKeyAnimations": 3
   },
   "resources": {
     "media": []
