@@ -24,12 +24,12 @@ Pebble.addEventListener('webviewclosed', function(e) {
   var json = JSON.parse(decodeURIComponent(e.response));
 
   // Convert colors
-  var background = GColorFromHex(json.background);
-  var sides = GColorFromHex(json.sides);
-  var face = GColorFromHex(json.face);
+  var background = GColorFromHex(json.isotime_background);
+  var sides = GColorFromHex(json.isotime_sides);
+  var face = GColorFromHex(json.isotime_face);
 
   var options = {
-    'AppKeyAnimations': '' + json.animations,
+    'AppKeyAnimations': (json.isotime_animations === 'true') ? 1 : 0,
     'AppKeyColorBackground': background,
     'AppKeyColorSides': sides,
     'AppKeyColorFace': face

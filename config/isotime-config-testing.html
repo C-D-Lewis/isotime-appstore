@@ -70,18 +70,18 @@
           console.log('This is the first launch!');
 
           // Align with watchapp defaults
-          persistWrite('animations', 'true');
-          persistWrite('background', '000000');
-          persistWrite('sides', 'FF5500');
-          persistWrite('face', 'FFFF00');
+          persistWrite('isotime_animations', 'true');
+          persistWrite('isotime_background', '000000');
+          persistWrite('isotime_sides', 'FF5500');
+          persistWrite('isotime_face', 'FFFF00');
         }
       }
 
       function loadConfig() {
-        document.getElementById('check_animations').checked = persistRead('animations', 'true') === 'true';
-        document.getElementById('text_background_color').value = '' + persistRead('background', '000000');
-        document.getElementById('text_sides_color').value = '' + persistRead('sides', 'FF5500');
-        document.getElementById('text_face_color').value = '' + persistRead('face', 'FFFF00');
+        document.getElementById('check_animations').checked = persistRead('isotime_animations', 'true') === 'true';
+        document.getElementById('text_background_color').value = '' + persistRead('isotime_background', '000000');
+        document.getElementById('text_sides_color').value = '' + persistRead('isotime_sides', 'FF5500');
+        document.getElementById('text_face_color').value = '' + persistRead('isotime_face', 'FFFF00');
       }
 
       function ajax(url, type, callback) {
@@ -94,7 +94,7 @@
       };
 
       function getAppVersionAndNews() {
-        //Get latest
+        // Get latest
         var url = 'https://dl.dropboxusercontent.com/u/10824180/pebble%20config%20pages/app_versions.json';
         ajax(url, 'GET', function(responseText) {
           var json = JSON.parse(responseText);
@@ -102,7 +102,7 @@
           document.getElementById('news').innerHTML = '' + json.isotimenews;
         });
 
-        //Get local
+        // Get local
         var version = '' + document.location;
         version = version.substring(version.indexOf('version=') + 'version='.length);
         document.getElementById('current_version').innerHTML = 'Current version: ' + version;
@@ -111,17 +111,17 @@
       var submitButton = document.getElementById('save_button');
       submitButton.addEventListener('click', function() {
         var options = {
-          'animations': document.getElementById('check_animations').checked ? 'true' : 'false',
-          'background': '' + document.getElementById('text_background_color').value,
-          'sides': '' + document.getElementById('text_sides_color').value,
-          'face': '' + document.getElementById('text_face_color').value
+          'isotime_animations': document.getElementById('check_animations').checked ? 'true' : 'false',
+          'isotime_background': '' + document.getElementById('text_background_color').value,
+          'isotime_sides': '' + document.getElementById('text_sides_color').value,
+          'isotime_face': '' + document.getElementById('text_face_color').value
         };
 
         // Save
-        persistWrite('animations', options['animations']);
-        persistWrite('background', options['background']);
-        persistWrite('sides', options['sides']);
-        persistWrite('face', options['face']);
+        persistWrite('isotime_animations', options['isotime_animations']);
+        persistWrite('isotime_background', options['isotime_background']);
+        persistWrite('isotime_sides', options['isotime_sides']);
+        persistWrite('isotime_face', options['isotime_face']);
 
         // Return
         document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));

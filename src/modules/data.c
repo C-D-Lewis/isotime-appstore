@@ -4,6 +4,8 @@
 static GColor s_colors[ColorMax];
 #endif
 
+static bool s_animations;
+
 void data_init() {
 #if defined(PBL_COLOR)
   if(persist_exists(ColorBackground)) {
@@ -16,15 +18,20 @@ void data_init() {
     s_colors[ColorBackground] = GColorBlack;
     s_colors[ColorSides] = GColorOrange;
     s_colors[ColorFace] = GColorYellow;
-
-    // Write defaults
     for(int i = 0; i < ColorMax; i++) {
       persist_write_int(i, s_colors[i].argb);
     }
   }
 #endif
 
-  // Other settings
+  // Other preferences
+  if(persist_exists(PreferenceAnimations)) {
+    s_animations = persist_read_bool(PreferenceAnimations);
+  } else {
+    // Default setting
+    s_animations = true;
+    persist_write_bool(PreferenceAnimations, s_animations);
+  }
 }
 
 void data_set_color(Color which, GColor new_color) {
@@ -41,4 +48,13 @@ GColor data_get_color(Color which) {
 
   // Dummy B&W value
   return GColorWhite;
+}
+
+void data_set_animations(bool value) {
+  s_animations = value;
+  persist_write_bool(PreferenceAnimations, s_animations);
+}
+
+bool data_get_animations() {
+  return s_animations;
 }

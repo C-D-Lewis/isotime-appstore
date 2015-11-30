@@ -78,7 +78,15 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   }
 
   // Smooth transition
-  pge_resume();
+  if(data_get_animations()) {
+    pge_resume();
+  } else {
+    // Instant transition
+    while(digits_are_animating()) {
+      pge_logic();
+    }
+    pge_manual_advance();
+  }
 }
 
 static void fix_handler(void *context) {
@@ -121,6 +129,13 @@ void pge_init() {
   // Fast forward - save power when lots of notifications
   while(digits_are_animating()) {
     pge_logic();
+  }
+
+  if(!data_get_animations()) {
+    pge_manual_advance();
+
+    // Don't animate after this
+    pge_pause();
   }
 
   app_focus_service_subscribe(focus_handler);

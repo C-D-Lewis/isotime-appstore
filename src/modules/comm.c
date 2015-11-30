@@ -19,7 +19,10 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
 #endif
 
   // Other settings
-
+  Tuple *anim_t = dict_find(iter, AppKeyAnimations);
+  if(anim_t) {
+    data_set_animations(anim_t->value->int32 == 1);
+  }
 
   // Quit to be reloaded - PGE must be reinitialized to set the background color
   window_stack_pop_all(true);

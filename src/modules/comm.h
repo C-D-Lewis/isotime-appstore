@@ -7,7 +7,8 @@
 typedef enum {
   AppKeyColorBackground = 0,
   AppKeyColorSides,
-  AppKeyColorFace
+  AppKeyColorFace,
+  AppKeyAnimations
 } AppKey;
 
 void comm_init(int inbox, int outbox);
