@@ -24,7 +24,12 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
     data_set_animations(anim_t->value->int32 == 1);
   }
 
-  // Quit to be reloaded - PGE must be reinitialized to set the background color
+  Tuple *bluetooth_t = dict_find(iter, AppKeyBluetooth);
+  if(bluetooth_t) {
+    data_set_bluetooth_alert(bluetooth_t->value->int32 == 1);
+  }
+
+  // Quit to be reloaded
   window_stack_pop_all(true);
 }
 

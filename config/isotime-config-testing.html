@@ -33,6 +33,9 @@
       <tr>
         <td>Animations</td><td><input id='check_animations' type='checkbox'/></td>
       </tr>
+      <tr>
+        <td>Bluetooth vibration alert (Also uses grey background on color watches only)</td><td><input id='check_bluetooth' type='checkbox'/></td>
+      </tr>
     </table>
 
     <p>
@@ -74,14 +77,16 @@
           persistWrite('isotime_background', '000000');
           persistWrite('isotime_sides', 'FF5500');
           persistWrite('isotime_face', 'FFFF00');
+          persistWrite('isotime_bluetooth', 'true');
         }
       }
 
       function loadConfig() {
-        document.getElementById('check_animations').checked = persistRead('isotime_animations', 'true') === 'true';
         document.getElementById('text_background_color').value = '' + persistRead('isotime_background', '000000');
         document.getElementById('text_sides_color').value = '' + persistRead('isotime_sides', 'FF5500');
         document.getElementById('text_face_color').value = '' + persistRead('isotime_face', 'FFFF00');
+        document.getElementById('check_animations').checked = persistRead('isotime_animations', 'true') === 'true';
+        document.getElementById('check_bluetooth').checked = persistRead('isotime_bluetooth', 'true') === 'true';
       }
 
       function ajax(url, type, callback) {
@@ -111,17 +116,19 @@
       var submitButton = document.getElementById('save_button');
       submitButton.addEventListener('click', function() {
         var options = {
-          'isotime_animations': document.getElementById('check_animations').checked ? 'true' : 'false',
           'isotime_background': '' + document.getElementById('text_background_color').value,
           'isotime_sides': '' + document.getElementById('text_sides_color').value,
-          'isotime_face': '' + document.getElementById('text_face_color').value
+          'isotime_face': '' + document.getElementById('text_face_color').value,
+          'isotime_animations': document.getElementById('check_animations').checked ? 'true' : 'false',
+          'isotime_bluetooth': document.getElementById('check_bluetooth').checked ? 'true' : 'false'
         };
 
         // Save
-        persistWrite('isotime_animations', options['isotime_animations']);
         persistWrite('isotime_background', options['isotime_background']);
         persistWrite('isotime_sides', options['isotime_sides']);
         persistWrite('isotime_face', options['isotime_face']);
+        persistWrite('isotime_animations', options['isotime_animations']);
+        persistWrite('isotime_bluetooth', options['isotime_bluetooth']);
 
         // Return
         document.location = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(options));

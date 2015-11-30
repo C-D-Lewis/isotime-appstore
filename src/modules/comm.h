@@ -8,7 +8,8 @@ typedef enum {
   AppKeyColorBackground = 0,
   AppKeyColorSides,
   AppKeyColorFace,
-  AppKeyAnimations
+  AppKeyAnimations,
+  AppKeyBluetooth
 } AppKey;
 
 void comm_init(int inbox, int outbox);

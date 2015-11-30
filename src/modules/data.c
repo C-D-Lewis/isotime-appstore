@@ -4,7 +4,7 @@
 static GColor s_colors[ColorMax];
 #endif
 
-static bool s_animations;
+static bool s_animations, s_bluetooth_alert;
 
 void data_init() {
 #if defined(PBL_COLOR)
@@ -27,10 +27,13 @@ void data_init() {
   // Other preferences
   if(persist_exists(PreferenceAnimations)) {
     s_animations = persist_read_bool(PreferenceAnimations);
+    s_bluetooth_alert = persist_read_bool(PreferenceBluetoothAlert);
   } else {
     // Default setting
     s_animations = true;
     persist_write_bool(PreferenceAnimations, s_animations);
+    s_bluetooth_alert = true;
+    persist_write_bool(PreferenceBluetoothAlert, s_bluetooth_alert);
   }
 }
 
@@ -57,4 +60,13 @@ void data_set_animations(bool value) {
 
 bool data_get_animations() {
   return s_animations;
+}
+
+void data_set_bluetooth_alert(bool value) {
+  s_bluetooth_alert = value;
+  persist_write_bool(PreferenceBluetoothAlert, s_bluetooth_alert);
+}
+
+bool data_get_bluetooth_alert() {
+  return s_bluetooth_alert;
 }

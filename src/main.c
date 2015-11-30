@@ -105,6 +105,16 @@ static void focus_handler(bool now_in_focus) {
   }
 }
 
+static void bt_handler(bool connected) {
+#if defined(PBL_COLOR)
+  pge_set_background_color(connected ? data_get_color(ColorBackground) : GColorDarkGray);
+#endif
+
+  if(!connected) {
+    vibes_double_pulse();
+  }
+}
+
 void pge_init() {
   s_initd = false;
 
@@ -118,7 +128,8 @@ void pge_init() {
 
   pge_isometric_set_projection_offset(PROJECTION_OFFSET);
   pge_set_framerate(FRAME_RATE_HIGH);
-  pge_begin(data_get_color(ColorBackground), pge_logic, pge_render, NULL);
+  pge_begin(pge_logic, pge_render, NULL);
+  pge_set_background_color(data_get_color(ColorBackground));
 
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 
@@ -130,7 +141,9 @@ void pge_init() {
   while(digits_are_animating()) {
     pge_logic();
   }
+  app_focus_service_subscribe(focus_handler);
 
+  // If no animations
   if(!data_get_animations()) {
     pge_manual_advance();
 
@@ -138,7 +151,19 @@ void pge_init() {
     pge_pause();
   }
 
-  app_focus_service_subscribe(focus_handler);
+  // If bluetooth alert enabled
+  if(data_get_bluetooth_alert()) {
+#if defined(PBL_SDK_2)
+    bluetooth_connection_service_subscribe(bt_handler);
+    bt_handler(bluetooth_connection_service_peek());
+#elif defined(PBL_SDK_3)
+    connection_service_subscribe((ConnectionHandlers) {
+      .pebble_app_connection_handler = bt_handler
+    });
+    bt_handler(connection_service_peek_pebble_app_connection());
+#endif
+  }
+
 }
 
 void pge_deinit() {

@@ -29,10 +29,12 @@ Pebble.addEventListener('webviewclosed', function(e) {
   var face = GColorFromHex(json.isotime_face);
 
   var options = {
-    'AppKeyAnimations': (json.isotime_animations === 'true') ? 1 : 0,
     'AppKeyColorBackground': background,
     'AppKeyColorSides': sides,
-    'AppKeyColorFace': face
+    'AppKeyColorFace': face,
+    'AppKeyAnimations': (json.isotime_animations === 'true') ? 1 : 0,
+    'AppKeyBluetooth': (json.isotime_bluetooth === 'true') ? 1 : 0,
+
   };
 
   Pebble.sendAppMessage(options, function() {

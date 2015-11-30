@@ -19,7 +19,8 @@
     "AppKeyColorBackground": 0,
     "AppKeyColorSides": 1,
     "AppKeyColorFace": 2,
-    "AppKeyAnimations": 3
+    "AppKeyAnimations": 3,
+    "AppKeyBluetooth": 4
   },
   "resources": {
     "media": []
