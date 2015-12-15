@@ -3,8 +3,8 @@
   "shortName": "Isotime",
   "longName": "Isotime",
   "companyName": "Chris Lewis",
-  "versionCode": 6,
-  "versionLabel": "1.5",
+  "versionCode": 7,
+  "versionLabel": "1.6",
   "watchapp": {
     "watchface": true
   },

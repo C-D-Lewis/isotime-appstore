@@ -129,7 +129,12 @@ void pge_init() {
   pge_isometric_set_projection_offset(PROJECTION_OFFSET);
   pge_set_framerate(FRAME_RATE_HIGH);
   pge_begin(pge_logic, pge_render, NULL);
+
+#if defined(PBL_COLOR)
   pge_set_background_color(data_get_color(ColorBackground));
+#elif defined(PBL_BW)
+  pge_set_background_color(GColorBlack);
+#endif
 
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 

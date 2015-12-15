@@ -49,7 +49,7 @@ GColor data_get_color(Color which) {
   return s_colors[which];
 #endif
 
-  // Dummy B&W value
+  // Dummy B&W value, Segment will draw itself as boxes
   return GColorWhite;
 }
 
