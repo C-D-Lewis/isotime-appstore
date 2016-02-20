@@ -4,6 +4,8 @@
 
 #include "data.h"
 
+#include "../main.h"
+
 typedef enum {
   AppKeyColorBackground = 0,
   AppKeyColorSides,

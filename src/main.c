@@ -73,10 +73,6 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   }
   digit_set_value(s_digits[3], mins % 10);
 
-  for(int i = 0; i < 4; i++) {
-    digit_set_colors(s_digits[i], data_get_color(ColorSides), data_get_color(ColorFace));
-  }
-
   // Smooth transition
   if(data_get_animations()) {
     pge_resume();
@@ -119,7 +115,9 @@ void pge_init() {
   s_initd = false;
 
   data_init();
-  comm_init(64, 64);
+
+  const int buffer_size = 64;
+  comm_init(buffer_size, buffer_size);
 
   s_digits[0] = digit_create(GPoint(-HOURS_OFFSET, 0), 0);
   s_digits[1] = digit_create(GPoint(-HOURS_OFFSET + (5 * SEGMENT_SIZE.w), 0), 0);
@@ -130,17 +128,13 @@ void pge_init() {
   pge_set_framerate(FRAME_RATE_HIGH);
   pge_begin(pge_logic, pge_render, NULL);
 
-#if defined(PBL_COLOR)
-  pge_set_background_color(data_get_color(ColorBackground));
-#elif defined(PBL_BW)
-  pge_set_background_color(GColorBlack);
-#endif
-
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 
   time_t temp = time(NULL);
   struct tm *t = localtime(&temp);
   tick_handler(t, MINUTE_UNIT);
+
+  main_reload_config();
 
   // Fast forward - save power when lots of notifications
   while(digits_are_animating()) {
@@ -155,20 +149,6 @@ void pge_init() {
     // Don't animate after this
     pge_pause();
   }
-
-  // If bluetooth alert enabled
-  if(data_get_bluetooth_alert()) {
-#if defined(PBL_SDK_2)
-    bluetooth_connection_service_subscribe(bt_handler);
-    bt_handler(bluetooth_connection_service_peek());
-#elif defined(PBL_SDK_3)
-    connection_service_subscribe((ConnectionHandlers) {
-      .pebble_app_connection_handler = bt_handler
-    });
-    bt_handler(connection_service_peek_pebble_app_connection());
-#endif
-  }
-
 }
 
 void pge_deinit() {
@@ -176,5 +156,27 @@ void pge_deinit() {
 
   for(int i = 0; i < 4; i++) {
     digit_destroy(s_digits[i]);
+  }
+}
+
+void main_reload_config() {
+  // If bluetooth alert enabled
+  if(data_get_bluetooth_alert()) {
+    connection_service_subscribe((ConnectionHandlers) {
+      .pebble_app_connection_handler = bt_handler
+    });
+    bt_handler(connection_service_peek_pebble_app_connection());
+  } else {
+    connection_service_unsubscribe();
+  }
+
+#if defined(PBL_COLOR)
+  pge_set_background_color(data_get_color(ColorBackground));
+#elif defined(PBL_BW)
+  pge_set_background_color(GColorBlack);
+#endif
+
+  for(int i = 0; i < 4; i++) {
+    digit_set_colors(s_digits[i], data_get_color(ColorSides), data_get_color(ColorFace));
   }
 }

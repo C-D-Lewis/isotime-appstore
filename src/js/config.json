@@ -1,12 +1,9 @@
 [
   { 
     "type": "heading", 
-    "defaultValue": "Isotime Configuration" 
+    "defaultValue": "Isotime Configuration" ,
+    "size": 3
   }, 
-  { 
-    "type": "text", 
-    "defaultValue": "Use this page to customize Isotime." 
-  },
   {
     "type": "section",
     "items": [
@@ -16,7 +13,7 @@
       },
       {
         "type": "text",
-        "defaultValue": "Note: Only available on compatible platforms."
+        "defaultValue": "Only available on compatible platforms."
       },
       {
         "type": "color",
@@ -58,5 +55,9 @@
         "defaultValue": true
       }
     ]
+  },
+  {
+    "type": "submit",
+    "defaultValue": "Save"
   }
 ]
