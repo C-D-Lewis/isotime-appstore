@@ -179,4 +179,6 @@ void main_reload_config() {
   for(int i = 0; i < 4; i++) {
     digit_set_colors(s_digits[i], data_get_color(ColorSides), data_get_color(ColorFace));
   }
+
+  pge_manual_advance();
 }
