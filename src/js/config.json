@@ -1,0 +1,62 @@
+[
+  { 
+    "type": "heading", 
+    "defaultValue": "Isotime Configuration" 
+  }, 
+  { 
+    "type": "text", 
+    "defaultValue": "Use this page to customize Isotime." 
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Colors"
+      },
+      {
+        "type": "text",
+        "defaultValue": "Note: Only available on compatible platforms."
+      },
+      {
+        "type": "color",
+        "label": "Background",
+        "appKey": "AppKeyColorBackground",
+        "defaultValue": "000000"
+      },
+      {
+        "type": "color",
+        "label": "Block sides",
+        "appKey": "AppKeyColorSides",
+        "defaultValue": "FF5500"
+      },
+      {
+        "type": "color",
+        "label": "Faces",
+        "appKey": "AppKeyColorFace",
+        "defaultValue": "FFFF00"
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Features"
+      },
+      {
+        "type": "toggle",
+        "label": "Animations",
+        "appKey": "AppKeyAnimations",
+        "defaultValue": true
+      },
+      {
+        "type": "toggle",
+        "label": "Bluetooth alerts",
+        "appKey": "AppKeyBluetooth",
+        "defaultValue": true
+      }
+    ]
+  }
+]

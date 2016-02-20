@@ -3,11 +3,12 @@
   "shortName": "Isotime",
   "longName": "Isotime",
   "companyName": "Chris Lewis",
-  "versionCode": 7,
-  "versionLabel": "1.6",
+  "versionCode": 8,
+  "versionLabel": "1.7",
   "watchapp": {
     "watchface": true
   },
+  "enableMultiJS": true,
   "sdkVersion": "3",
   "targetPlatforms": [
     "aplite",
