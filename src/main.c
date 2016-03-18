@@ -160,6 +160,13 @@ void pge_deinit() {
 }
 
 void main_reload_config() {
+  // Must be before BT handle overwrites the BG color!
+  #if defined(PBL_COLOR)
+    pge_set_background_color(data_get_color(ColorBackground));
+  #elif defined(PBL_BW)
+    pge_set_background_color(GColorBlack);
+  #endif
+
   // If bluetooth alert enabled
   if(data_get_bluetooth_alert()) {
     connection_service_subscribe((ConnectionHandlers) {
@@ -169,12 +176,6 @@ void main_reload_config() {
   } else {
     connection_service_unsubscribe();
   }
-
-#if defined(PBL_COLOR)
-  pge_set_background_color(data_get_color(ColorBackground));
-#elif defined(PBL_BW)
-  pge_set_background_color(GColorBlack);
-#endif
 
   for(int i = 0; i < 4; i++) {
     digit_set_colors(s_digits[i], data_get_color(ColorSides), data_get_color(ColorFace));
