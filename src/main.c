@@ -59,6 +59,10 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   int hours = tick_time->tm_hour;
   int mins = tick_time->tm_min;
 
+  if(!clock_is_24h_style() && hours > 12) {
+    hours -= 12;
+  }
+
   if(hours < 10) {
     digit_set_value(s_digits[0], 0);
   } else {
