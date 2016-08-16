@@ -1,0 +1,40 @@
+{
+  "version": "1.8.0",
+  "author": "Chris Lewis",
+  "private": true,
+  "dependencies": {},
+  "keywords": [
+    "pebble-app"
+  ],
+  "pebble": {
+    "sdkVersion": "3",
+    "resources": {
+      "media": []
+    },
+    "projectType": "native",
+    "uuid": "4997bd2e-d87c-4377-ba52-a7b8a795b18d",
+    "messageKeys": {
+      "AppKeyAnimations": 3,
+      "AppKeyColorBackground": 0,
+      "AppKeyColorFace": 2,
+      "AppKeyBluetooth": 4,
+      "AppKeyColorSides": 1
+    },
+    "enableMultiJS": true,
+    "displayName": "Isotime",
+    "watchapp": {
+      "onlyShownOnCommunication": false,
+      "hiddenApp": false,
+      "watchface": true
+    },
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk"
+    ],
+    "capabilities": [
+      "configurable"
+    ]
+  },
+  "name": "Isotime"
+}
