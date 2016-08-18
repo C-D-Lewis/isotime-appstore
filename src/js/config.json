@@ -18,19 +18,19 @@
       {
         "type": "color",
         "label": "Background",
-        "appKey": "AppKeyColorBackground",
+        "messageKey": "AppKeyColorBackground",
         "defaultValue": "000000"
       },
       {
         "type": "color",
         "label": "Block sides",
-        "appKey": "AppKeyColorSides",
+        "messageKey": "AppKeyColorSides",
         "defaultValue": "FF5500"
       },
       {
         "type": "color",
         "label": "Faces",
-        "appKey": "AppKeyColorFace",
+        "messageKey": "AppKeyColorFace",
         "defaultValue": "FFFF00"
       }
     ]
@@ -45,13 +45,13 @@
       {
         "type": "toggle",
         "label": "Animations",
-        "appKey": "AppKeyAnimations",
+        "messageKey": "AppKeyAnimations",
         "defaultValue": true
       },
       {
         "type": "toggle",
         "label": "Bluetooth alerts",
-        "appKey": "AppKeyBluetooth",
+        "messageKey": "AppKeyBluetooth",
         "defaultValue": true
       }
     ]
