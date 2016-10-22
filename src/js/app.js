@@ -1,4 +1,4 @@
-var VERSION = '1.10';
+var VERSION = '1.11';
 
 var Clay = require('pebble-clay');
 var clayConfig = require('./config.json');

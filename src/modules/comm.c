@@ -1,32 +1,30 @@
 #include "comm.h"
 
+#include <pebble-packet/pebble-packet.h>
+
 static void inbox_received_handler(DictionaryIterator *iter, void *context) {
 #if defined(PBL_COLOR)
-  Tuple *background_t = dict_find(iter, AppKeyColorBackground);
-  if(background_t) {
-    data_set_color(ColorBackground, GColorFromHEX(background_t->value->int32));
+  // Color settings
+  if(packet_contains_key(iter, AppKeyColorBackground)) {
+    data_set_color(ColorBackground, GColorFromHEX(packet_get_integer(iter, AppKeyColorBackground)));
   }
 
-  Tuple *sides_t = dict_find(iter, AppKeyColorSides);
-  if(sides_t) {
-    data_set_color(ColorSides, GColorFromHEX(sides_t->value->int32));
+  if(packet_contains_key(iter, AppKeyColorSides)) {
+    data_set_color(ColorSides, GColorFromHEX(packet_get_integer(iter, AppKeyColorSides)));
   }
 
-  Tuple *face_t = dict_find(iter, AppKeyColorFace);
-  if(face_t) {
-    data_set_color(ColorFace, GColorFromHEX(face_t->value->int32));
+  if(packet_contains_key(iter, AppKeyColorFace)) {
+    data_set_color(ColorFace, GColorFromHEX(packet_get_integer(iter, AppKeyColorFace)));
   }
 #endif
 
   // Other settings
-  Tuple *anim_t = dict_find(iter, AppKeyAnimations);
-  if(anim_t) {
-    data_set_animations(anim_t->value->int8 == 1);
+  if(packet_contains_key(iter, AppKeyAnimations)) {
+    data_set_animations(packet_get_boolean(iter, AppKeyAnimations));
   }
 
-  Tuple *bluetooth_t = dict_find(iter, AppKeyBluetooth);
-  if(bluetooth_t) {
-    data_set_bluetooth_alert(bluetooth_t->value->int8 == 1);
+  if(packet_contains_key(iter, AppKeyBluetooth)) {
+    data_set_bluetooth_alert(packet_get_boolean(iter, AppKeyBluetooth));
   }
 
   main_reload_config();

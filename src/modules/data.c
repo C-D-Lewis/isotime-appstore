@@ -29,7 +29,7 @@ void data_init() {
     s_animations = persist_read_bool(PreferenceAnimations);
     s_bluetooth_alert = persist_read_bool(PreferenceBluetoothAlert);
   } else {
-    // Default setting
+    // Default settings
     s_animations = true;
     persist_write_bool(PreferenceAnimations, s_animations);
     s_bluetooth_alert = true;
@@ -59,7 +59,11 @@ void data_set_animations(bool value) {
 }
 
 bool data_get_animations() {
+#if defined(PBL_ROUND)
+  return false; // Crashes on PTR for unknown reasons
+#else
   return s_animations;
+#endif
 }
 
 void data_set_bluetooth_alert(bool value) {

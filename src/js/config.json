@@ -46,7 +46,8 @@
         "type": "toggle",
         "label": "Animations",
         "messageKey": "AppKeyAnimations",
-        "defaultValue": true
+        "defaultValue": true,
+        "capabilities": [ "RECT" ]
       },
       {
         "type": "toggle",
