@@ -39,6 +39,8 @@
   "name": "Isotime",
   "dependencies": {
     "pebble-clay": "^1.0.3",
-    "pebble-packet": "^1.3.2"
+    "pebble-isometric": "^1.0.0",
+    "pebble-packet": "^1.3.2",
+    "pebble-pge-simple": "^1.0.1"
   }
 }
