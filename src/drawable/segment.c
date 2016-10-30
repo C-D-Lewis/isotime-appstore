@@ -27,12 +27,12 @@ void segment_logic(Segment *this) {
 
 void segment_render(Segment *this) {
 #if defined(PBL_BW)
-  pge_isometric_fill_box(this->origin, SEGMENT_SIZE, SEGMENT_MAX_HEIGHT, GColorBlack);
-  pge_isometric_draw_box(this->origin, SEGMENT_SIZE, SEGMENT_MAX_HEIGHT, GColorWhite);
-  pge_isometric_fill_rect(Vec3(this->origin.x, this->origin.y, this->origin.z + SEGMENT_MAX_HEIGHT), SEGMENT_SIZE, GColorWhite);
+  isometric_fill_box(this->origin, SEGMENT_SIZE, SEGMENT_MAX_HEIGHT, GColorBlack);
+  isometric_draw_box(this->origin, SEGMENT_SIZE, SEGMENT_MAX_HEIGHT, GColorWhite);
+  isometric_fill_rect(Vec3(this->origin.x, this->origin.y, this->origin.z + SEGMENT_MAX_HEIGHT), SEGMENT_SIZE, GColorWhite);
 #elif defined(PBL_COLOR)
-  pge_isometric_fill_box(this->origin, SEGMENT_SIZE, SEGMENT_MAX_HEIGHT, this->side_color);
-  pge_isometric_fill_rect(Vec3(this->origin.x, this->origin.y, this->origin.z + SEGMENT_MAX_HEIGHT), SEGMENT_SIZE, this->face_color);
+  isometric_fill_box(this->origin, SEGMENT_SIZE, SEGMENT_MAX_HEIGHT, this->side_color);
+  isometric_fill_rect(Vec3(this->origin.x, this->origin.y, this->origin.z + SEGMENT_MAX_HEIGHT), SEGMENT_SIZE, this->face_color);
 #endif
 }
 

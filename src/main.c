@@ -5,8 +5,8 @@
 #include "modules/data.h"
 #include "modules/comm.h"
 
-#include "pge/pge.h"
-#include "pge/modules/pge_isometric.h"
+#include <pebble-pge-simple/pebble-pge-simple.h>
+#include <pebble-isometric/pebble-isometric.h>
 
 #include "drawable/segment.h"
 #include "drawable/digit.h"
@@ -35,11 +35,11 @@ static void pge_render(GContext *ctx) {
   uint16_t start = time_ms(NULL, NULL);
 #endif
 
-  pge_isometric_begin(ctx);
+  isometric_begin(ctx);
   for(int i = 0; i < 4; i++) {
     digit_render(s_digits[i]);
   }
-  pge_isometric_finish(ctx);
+  isometric_finish(ctx);
 
   if(!digits_are_animating()) {
     pge_pause();
@@ -128,7 +128,7 @@ void pge_init() {
   s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * SEGMENT_SIZE.h), 0);
   s_digits[3] = digit_create(GPoint(MINS_OFFSET + (5 * SEGMENT_SIZE.w), 7 * SEGMENT_SIZE.h), 0);
 
-  pge_isometric_set_projection_offset(PROJECTION_OFFSET);
+  isometric_set_projection_offset(PROJECTION_OFFSET);
   pge_set_framerate(FRAME_RATE_HIGH);
   pge_begin(pge_logic, pge_render, NULL);
 

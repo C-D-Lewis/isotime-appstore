@@ -1,7 +1,8 @@
 #pragma once
 
 #include <pebble.h>
-#include "../pge/modules/pge_isometric.h"
+
+#include <pebble-isometric/pebble-isometric.h>
 
 #define SEGMENT_MAX_HEIGHT 10
 #define SEGMENT_SIZE GSize(10, 10)
