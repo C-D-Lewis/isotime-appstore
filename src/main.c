@@ -107,7 +107,17 @@ static void focus_handler(bool now_in_focus) {
 
 static void bt_handler(bool connected) {
 #if defined(PBL_COLOR)
-  pge_set_background_color(connected ? data_get_color(ColorBackground) : GColorDarkGray);
+  // Gray digits
+  if(connected) {
+    for(int i = 0; i < 4; i++) {
+      digit_set_colors(s_digits[i], data_get_color(ColorSides), data_get_color(ColorFace));
+    }
+  } else {
+    for(int i = 0; i < 4; i++) {
+      digit_set_colors(s_digits[i], GColorDarkGray, GColorLightGray);
+    }
+  }
+  pge_manual_advance();
 #endif
 
   if(!connected) {
