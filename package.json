@@ -1,11 +1,19 @@
 {
-  "version": "1.11.0",
+  "version": "1.12.0",
   "author": "Chris Lewis",
+  "name": "Isotime",
+  "dependencies": {
+    "pebble-clay": "^1.0.3",
+    "pebble-isometric": "^1.0.0",
+    "pebble-packet": "^1.3.2",
+    "pebble-pge-simple": "^1.0.1"
+  },
   "private": true,
   "keywords": [
     "pebble-app"
   ],
   "pebble": {
+    "displayName": "Isotime",
     "sdkVersion": "3",
     "resources": {
       "media": []
@@ -20,7 +28,6 @@
       "AppKeyColorSides": 1
     },
     "enableMultiJS": true,
-    "displayName": "Isotime",
     "watchapp": {
       "onlyShownOnCommunication": false,
       "hiddenApp": false,
@@ -35,12 +42,5 @@
     "capabilities": [
       "configurable"
     ]
-  },
-  "name": "Isotime",
-  "dependencies": {
-    "pebble-clay": "^1.0.3",
-    "pebble-isometric": "^1.0.0",
-    "pebble-packet": "^1.3.2",
-    "pebble-pge-simple": "^1.0.1"
   }
 }
