@@ -7,6 +7,7 @@
 
 #include <pebble-pge-simple/pebble-pge-simple.h>
 #include <pebble-isometric/pebble-isometric.h>
+#include <pebble-universal-fb/pebble-universal-fb.h>
 
 #include "drawable/segment.h"
 #include "drawable/digit.h"
@@ -24,6 +25,45 @@ static bool digits_are_animating() {
   return false;
 }
 
+#if defined(PBL_BW)
+static void filter_gaps(GContext *ctx) {
+  GBitmap *fb = graphics_capture_frame_buffer(ctx);
+  GRect bounds = gbitmap_get_bounds(fb);
+
+  // For all origins
+  for(int y = 0; y < bounds.size.h; y++) {
+    if(y >= bounds.size.h - 5) {
+      // Don't go out of bounds near the end
+      continue;
+    }
+
+    GBitmapDataRowInfo info1 = gbitmap_get_data_row_info(fb, y);
+    for(int x = info1.min_x; x <= info1.max_x; x++) {
+      // Look for w w b w w pattern
+      GColor p1 = universal_fb_get_pixel_color(info1, bounds, GPoint(x, y));
+      GBitmapDataRowInfo info2 = gbitmap_get_data_row_info(fb, y + 1);
+      GColor p2 = universal_fb_get_pixel_color(info2, bounds, GPoint(x, y + 1));
+      GBitmapDataRowInfo info3 = gbitmap_get_data_row_info(fb, y + 2);
+      GColor p3 = universal_fb_get_pixel_color(info3, bounds, GPoint(x, y + 2));
+      GBitmapDataRowInfo info4 = gbitmap_get_data_row_info(fb, y + 3);
+      GColor p4 = universal_fb_get_pixel_color(info4, bounds, GPoint(x, y + 3));
+      GBitmapDataRowInfo info5 = gbitmap_get_data_row_info(fb, y + 4);
+      GColor p5 = universal_fb_get_pixel_color(info5, bounds, GPoint(x, y + 4));
+      if(gcolor_equal(p1, GColorWhite)
+      && gcolor_equal(p2, GColorWhite)
+      && gcolor_equal(p3, GColorBlack)
+      && gcolor_equal(p4, GColorWhite)
+      && gcolor_equal(p5, GColorWhite)) {
+        // universal_fb_set_pixel_color(info3, bounds, GPoint(x - 1, y + 2), GColorWhite);
+        universal_fb_set_pixel_color(info3, bounds, GPoint(x, y + 2), GColorWhite);
+      }
+    }
+  }
+
+  graphics_release_frame_buffer(ctx, fb);
+}
+#endif
+
 static void pge_logic() {
   for(int i = 0; i < 4; i++) {
     digit_logic(s_digits[i]);
@@ -40,6 +80,10 @@ static void pge_render(GContext *ctx) {
     digit_render(s_digits[i]);
   }
   isometric_finish(ctx);
+
+#if defined(PBL_BW)
+  filter_gaps(ctx);
+#endif
 
   if(!digits_are_animating()) {
     pge_pause();
