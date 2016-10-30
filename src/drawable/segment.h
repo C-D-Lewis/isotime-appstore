@@ -4,10 +4,10 @@
 
 #include <pebble-isometric/pebble-isometric.h>
 
-#define SEGMENT_MAX_HEIGHT 10
-#define SEGMENT_SIZE GSize(10, 10)
+#include "../config.h"
+
 #define SEGMENT_FLY_SPEED 10
-#define SEGMENT_Z_MAX 200
+#define SEGMENT_Z_MAX 220
 #define SEGMENT_DELAY_COEFF 10
 
 typedef struct {

@@ -134,9 +134,9 @@ void pge_init() {
   comm_init(buffer_size, buffer_size);
 
   s_digits[0] = digit_create(GPoint(-HOURS_OFFSET, 0), 0);
-  s_digits[1] = digit_create(GPoint(-HOURS_OFFSET + (5 * SEGMENT_SIZE.w), 0), 0);
-  s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * SEGMENT_SIZE.h), 0);
-  s_digits[3] = digit_create(GPoint(MINS_OFFSET + (5 * SEGMENT_SIZE.w), 7 * SEGMENT_SIZE.h), 0);
+  s_digits[1] = digit_create(GPoint(-HOURS_OFFSET + (5 * BLOCK_SIZE), 0), 0);
+  s_digits[2] = digit_create(GPoint(MINS_OFFSET, 7 * BLOCK_SIZE), 0);
+  s_digits[3] = digit_create(GPoint(MINS_OFFSET + (5 * BLOCK_SIZE), 7 * BLOCK_SIZE), 0);
 
   isometric_set_projection_offset(PROJECTION_OFFSET);
   pge_set_framerate(FRAME_RATE_HIGH);

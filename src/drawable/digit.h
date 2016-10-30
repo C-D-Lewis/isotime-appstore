@@ -2,6 +2,8 @@
 
 #include "segment.h"
 
+#include "../config.h"
+
 typedef struct {
   Segment *segments[15];
   GPoint origin;

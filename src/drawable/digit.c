@@ -12,9 +12,9 @@ Digit* digit_create(GPoint origin, int initial_value) {
 
   for(int i = 0; i < 15; i++) {
     GPoint p = i2xy(i);
-    Vec3 vec = Vec3(p.x, p.y, 0);
-    vec.x *= SEGMENT_SIZE.w;
-    vec.y *= SEGMENT_SIZE.h;
+    Vec3 vec = Vec3(p.x, p.y, BASE_Y);
+    vec.x *= BLOCK_SIZE;
+    vec.y *= BLOCK_SIZE;
     vec.x += origin.x;
     vec.y += origin.y;
     this->segments[i] = segment_create(vec);
