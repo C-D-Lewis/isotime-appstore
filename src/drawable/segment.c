@@ -28,8 +28,7 @@ void segment_logic(Segment *this) {
 void segment_render(Segment *this) {
   GSize size = GSize(BLOCK_SIZE, BLOCK_SIZE);
 #if defined(PBL_BW)
-  isometric_fill_box(this->origin, size, BLOCK_SIZE, GColorBlack);
-  isometric_draw_box(this->origin, size, BLOCK_SIZE, GColorWhite);
+  isometric_fill_box(this->origin, size, BLOCK_SIZE, GColorDarkGray);
   isometric_fill_rect(Vec3(this->origin.x, this->origin.y, this->origin.z + BLOCK_SIZE), size, GColorWhite);
 #elif defined(PBL_COLOR)
   isometric_fill_box(this->origin, size, BLOCK_SIZE, this->side_color);
